@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../util/constants/AppColors.dart';
 import '../providers/ProductCreateProvider.dart';
 import '../widgets/forms/DynamicForm.dart';
 
@@ -26,8 +27,12 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
         child:
             Consumer<ProductCreateProvider>(builder: (context, provider, __) {
           return Scaffold(
+            backgroundColor: AppColors.background,
             appBar: AppBar(
-              title: const Text('Create Product'),
+              backgroundColor: AppColors.primary,
+              iconTheme: const IconThemeData(color: AppColors.text),
+              title: const Text('Create Product',
+                  style: TextStyle(color: AppColors.text)),
             ),
             body: Padding(
               padding: const EdgeInsets.all(16),

@@ -3,6 +3,7 @@ import 'package:productos_prueba_tecnica_mobile/presentation/providers/ProductUp
 import 'package:provider/provider.dart';
 
 import '../../domain/models/Product.dart';
+import '../../util/constants/AppColors.dart';
 import '../widgets/forms/DynamicForm.dart';
 
 class ProductUpdateScreen extends StatefulWidget {
@@ -29,8 +30,12 @@ class _ProductUpdateScreenState extends State<ProductUpdateScreen> {
         child:
             Consumer<ProductUpdateProvider>(builder: (context, provider, __) {
           return Scaffold(
+              backgroundColor: AppColors.background,
               appBar: AppBar(
-                title: const Text('Update Product'),
+                backgroundColor: AppColors.primary,
+                iconTheme: const IconThemeData(color: AppColors.text),
+                title: const Text('Update Product',
+                    style: TextStyle(color: AppColors.text)),
               ),
               body: Padding(
                 padding: const EdgeInsets.all(16),

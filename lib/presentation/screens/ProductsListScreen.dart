@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:productos_prueba_tecnica_mobile/presentation/widgets/lists/ItemsListWidget.dart';
+import 'package:productos_prueba_tecnica_mobile/util/constants/AppColors.dart';
 import 'package:provider/provider.dart';
 
 import '../../domain/models/Product.dart';
@@ -22,8 +23,12 @@ class _ProductListScreenState extends State<ProductListScreen> {
           provider.getAllProducts();
 
           return Scaffold(
+            backgroundColor: AppColors.background,
             appBar: AppBar(
-              title: const Text('Products'),
+              backgroundColor: AppColors.primary,
+              iconTheme: const IconThemeData(color: AppColors.text),
+              title: const Text('Products',
+                  style: TextStyle(color: AppColors.text)),
             ),
             body: ItemsListWidget<Product>(
               items: provider.products,

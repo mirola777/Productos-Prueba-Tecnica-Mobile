@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../domain/models/Product.dart';
+import '../../util/constants/AppColors.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({super.key});
@@ -15,12 +16,41 @@ class _ProductScreenState extends State<ProductScreen> {
     final product = ModalRoute.of(context)!.settings.arguments as Product;
 
     return Scaffold(
+      backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: Text(product.name),
+        backgroundColor: AppColors.primary,
+        iconTheme: const IconThemeData(color: AppColors.text),
+        title:
+            Text(product.name, style: const TextStyle(color: AppColors.text)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: Text(product.id),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Icon(Icons.shopping_bag, color: AppColors.text, size: 80),
+            Text(product.name,
+                style: const TextStyle(
+                  color: AppColors.text,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                )),
+            Text('\$${product.price}',
+                style: const TextStyle(color: AppColors.text, fontSize: 20)),
+            Text('${product.stock} in stock',
+                style: const TextStyle(color: AppColors.text)),
+            const Divider(
+              height: 10,
+              color: Colors.transparent,
+            ),
+            Text(product.description ?? '',
+                style: const TextStyle(color: AppColors.text)),
+            const Divider(
+              height: 40,
+              color: Colors.transparent,
+            ),
+          ],
+        ),
       ),
     );
   }

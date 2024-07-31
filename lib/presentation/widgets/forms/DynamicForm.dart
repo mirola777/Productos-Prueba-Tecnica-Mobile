@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:productos_prueba_tecnica_mobile/util/Parser.dart';
+import 'package:productos_prueba_tecnica_mobile/util/constants/AppColors.dart';
 
 class DynamicForm extends StatefulWidget {
   final List<Map<String, String?>> fields;
@@ -60,9 +61,17 @@ class _DynamicFormState extends State<DynamicForm> {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextFormField(
         controller: _controllers[name],
+        style: const TextStyle(color: AppColors.text),
         decoration: InputDecoration(
           labelText: name.capitalize(),
+          focusColor: AppColors.text,
+          labelStyle: const TextStyle(color: AppColors.text),
+          enabledBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(color: AppColors.text),
+          ),
+          hoverColor: AppColors.text,
         ),
+        cursorColor: AppColors.text,
         keyboardType: _getKeyboarType(type),
         validator: (value) {
           return _validateField(value, type);
