@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:productos_prueba_tecnica_mobile/util/Parser.dart';
 import 'package:productos_prueba_tecnica_mobile/util/constants/AppColors.dart';
+import 'package:productos_prueba_tecnica_mobile/util/extensions/StringExtension.dart';
 
 class DynamicForm extends StatefulWidget {
   final List<Map<String, String?>> fields;
@@ -114,11 +115,5 @@ class _DynamicFormState extends State<DynamicForm> {
       default:
         return TextInputType.text;
     }
-  }
-}
-
-extension StringExtension on String {
-  String capitalize() {
-    return '${this[0].toUpperCase()}${substring(1)}';
   }
 }
