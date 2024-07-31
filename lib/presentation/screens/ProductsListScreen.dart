@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:productos_prueba_tecnica_mobile/domain/use_cases/product/GetAllProductsUseCase.dart';
+import 'package:productos_prueba_tecnica_mobile/presentation/widgets/lists/ItemsListWidget.dart';
+import 'package:provider/provider.dart';
 
-import '../../data/repositories/ProductRepository.dart';
 import '../../domain/models/Product.dart';
+import '../providers/ProductsProvider.dart';
 import '../widgets/ProductCard.dart';
 
 class ProductListScreen extends StatefulWidget {
@@ -13,38 +14,38 @@ class ProductListScreen extends StatefulWidget {
 }
 
 class _ProductListScreenState extends State<ProductListScreen> {
-  List<Product> products = [];
-
-  @override
-  void initState() {
-    super.initState();
-
-    final getAllProducts = GetAllProductsUseCase(getProductRepository());
-
-    getAllProducts.execute().then((value) {
-      setState(() {
-        products = value;
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Product r dist'),
-      ),
-      body: ListView.separated(
-        separatorBuilder: (context, index) => const Divider(
-          height: 10,
-          color: Colors.transparent,
-        ),
-        padding: const EdgeInsets.all(10),
-        itemCount: products.length,
-        itemBuilder: (context, index) {
-          return ProductCard(product: products[index]);
-        },
-      ),
-    );
+    return ChangeNotifierProvider(
+        create: (_) => ProductsProvider(),
+        child: Consumer<ProductsProvider>(builder: (context, provider, __) {
+          provider.getAllProducts();
+
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('Products'),
+            ),
+            body: ItemsListWidget<Product>(
+              items: provider.products,
+              itemBuilder: (product) => ProductCard(
+                  product: product,
+                  onTap: () {
+                    provider.openProduct(context, product);
+                  },
+                  onEdit: () {
+                    provider.updateProduct(context, product);
+                  },
+                  onDelete: () {
+                    provider.deleteProduct(product);
+                  }),
+            ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                provider.createProduct(context);
+              },
+              child: const Icon(Icons.add),
+            ),
+          );
+        }));
   }
 }

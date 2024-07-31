@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'presentation/screens/ProductsListScreen.dart';
+import 'util/Routes.dart';
+import 'util/constants/AppRoutes.dart';
 
 void main() {
   runApp(const MainApp());
@@ -11,6 +12,10 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(title: 'Products', home: ProductListScreen());
+    return MaterialApp(
+      title: 'Products',
+      initialRoute: AppRoutes.products,
+      routes: Routes.routes,
+    );
   }
 }
