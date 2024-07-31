@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../../data/repositories/ProductRepository.dart';
-import '../../domain/models/Product.dart';
-import '../../domain/use_cases/product/CreateProductUseCase.dart';
+import '../providers/ProductCreateProvider.dart';
 import '../widgets/forms/DynamicForm.dart';
 
 class ProductCreateScreen extends StatefulWidget {
@@ -13,22 +12,6 @@ class ProductCreateScreen extends StatefulWidget {
 }
 
 class _ProductCreateScreenState extends State<ProductCreateScreen> {
-  void _createProduct(Map<String, dynamic> data) {
-    final createProduct = CreateProductUseCase(getProductRepository());
-
-    final product = Product.fromJson(data);
-
-    createProduct.execute(product).then((createdProduct) {
-      Navigator.pop(context, createdProduct);
-    }).catchError((error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(error.toString()),
-        ),
-      );
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final fields = [
@@ -38,14 +21,21 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
       {"name": "stock", "type": "int"}
     ];
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Create Product'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: DynamicForm(fields: fields, onSubmit: _createProduct),
-      ),
-    );
+    return ChangeNotifierProvider(
+        create: (_) => ProductCreateProvider(),
+        child:
+            Consumer<ProductCreateProvider>(builder: (context, provider, __) {
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('Create Product'),
+            ),
+            body: Padding(
+              padding: const EdgeInsets.all(16),
+              child: DynamicForm(
+                  fields: fields,
+                  onSubmit: (data) => provider.createProduct(context, data)),
+            ),
+          );
+        }));
   }
 }
