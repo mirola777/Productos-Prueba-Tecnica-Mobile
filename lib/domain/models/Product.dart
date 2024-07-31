@@ -1,3 +1,5 @@
+import 'package:productos_prueba_tecnica_mobile/util/Parser.dart';
+
 class Product {
   final String id;
   final String name;
@@ -17,12 +19,12 @@ class Product {
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
-      id: json['id'],
-      name: json['name'],
-      price: json['price'].toDouble(),
-      stock: json['stock'].toInt(),
-      description: json['description'],
-      image: json['image'],
+      id: Parser.parseString(json['id']),
+      name: Parser.parseString(json['name']),
+      price: Parser.parseDouble(json['price']),
+      stock: Parser.parseInt(json['stock']),
+      description: Parser.parseString(json['description']),
+      image: Parser.parseString(json['image']),
     );
   }
 
