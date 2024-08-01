@@ -14,7 +14,7 @@ Contar con Flutter, Android Studio y un dispositivo virtual instalados en el com
 
 
 
-## Installation
+## Instalación
 
 Instalar el proyecto y sus dependencias
 
