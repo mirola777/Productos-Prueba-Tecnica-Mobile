@@ -1,9 +1,10 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 class HttpInstance {
   static final HttpInstance _instance = HttpInstance._internal();
 
-  final String baseUrl = 'http://10.0.2.2:3000';
+  final String baseUrl = dotenv.env['BACKEND_URL'] ?? '';
 
   final Map<String, String> headers = {
     'Content-Type': 'application/json',
