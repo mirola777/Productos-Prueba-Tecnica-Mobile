@@ -5,7 +5,7 @@ import 'util/Routes.dart';
 import 'util/constants/AppRoutes.dart';
 
 Future main() async {
-  await dotenv.load(fileName: ".env");
+  await dotenv.load();
 
   runApp(const MainApp());
 }
